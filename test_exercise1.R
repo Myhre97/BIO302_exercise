@@ -66,10 +66,10 @@ bioH <- biomassH %>%
   select(production, plot, site)
 
 # Changing column names:
-bioL %>% rename(Biomass = production)
-bioM %>% rename(Biomass = production)
-bioA %>% rename(Biomass = production)
-bioH %>% rename(Biomass = production)
+#bioL %>% rename(Biomass = production)
+#bioM %>% rename(Biomass = production)
+#bioA %>% rename(Biomass = production)
+#bioH %>% rename(Biomass = production)
 
 
 # summarise the same plots, but also combine the dataframes:
@@ -82,20 +82,26 @@ siste <- dplyr::full_join(tredje, bioH)
 view(siste)
 
 
-# dplyr group_by
-#sortert <- siste %>% 
-#  dplyr::group_by(site)
-#view(sortert)
-
-#lol1 <- siste %>% group_by(site) %>% summarise(production)
-#view(lol1)
 
 
-#summarizing production:
 
+# Summarise plot and group by - dplyr:
+
+CombPlot <- siste %>% group_by(plot, site) %>% 
+  summarise(Biomass = sum(production, na.rm = TRUE))
+
+view(CombPlot)
+
+
+
+
+#CombBio <- siste %>% group_by(site) %>% 
+#  summarise(Biomass = sum(production, na.rm = TRUE))
+
+#view(CombBio)
 
 #plotting by site (x = site y = production)
-plot1 <- ggplot(data = siste, aes(site, production))+
+plot1 <- ggplot(data = CombPlot, aes(site, Biomass))+
   geom_boxplot()
 plot1
 
