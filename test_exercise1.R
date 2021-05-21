@@ -101,7 +101,7 @@ view(CombPlot)
 #view(CombBio)
 
 #plotting by site (x = site y = production)
-plot1 <- ggplot(data = CombPlot, aes(site, Biomass))+
+plot1 <- ggplot(data = CombPlot, aes(site, Biomass, fill = site))+
   geom_boxplot()
 plot1
 
